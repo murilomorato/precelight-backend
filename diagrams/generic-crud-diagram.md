@@ -8,6 +8,5 @@ sequenceDiagram
     Services ->> Model: transform values into entity object
     Model ->> Services: return
     Services ->> Controller: return
-    Controller ->> Routes: add status code and success bol
-    Routes ->> A: API response
+    Controller ->> A: add statusCode/Body and call json Return
 ```
