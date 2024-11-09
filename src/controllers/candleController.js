@@ -11,6 +11,10 @@ exports.createCandle = (req, res) => {
         candleService.createCandle({ uid, candleType, message });
         res.status(201).json({ success: true });
     } catch (error) {
-        res.status(500).json({ success: false });
+        if (error.message === 'Invalid candle data') {
+            res.status(404).json({ success: false });
+        } else {
+            res.status(500).json({ success: false });
+        }
     }
 };
