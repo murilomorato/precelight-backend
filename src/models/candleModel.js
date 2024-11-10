@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const CandleSchema = new mongoose.Schema({
     uid: {
-        type: Number,
+        type: String,
         required: true,
         unique: true
     },
