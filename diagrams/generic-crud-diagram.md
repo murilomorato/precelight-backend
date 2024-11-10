@@ -6,6 +6,8 @@ sequenceDiagram
     Controller ->> Services: call services with generic object in arg
     Services ->> Services: execute validations on key values
     Services ->> Model: transform values into entity object
+    Model ->> MongoDb: commit changes
+    MongoDb ->> Model: return
     Model ->> Services: return
     Services ->> Controller: return
     Controller ->> A: add statusCode/Body and call json Return

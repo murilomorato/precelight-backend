@@ -5,40 +5,36 @@ jest.mock('../../src/models/candleModel');
 
 describe('Candle Service', () => {
 
-    it('should return all candles', () => {
+    it('should return all candles', async () => {
         const candles = [{ uid: 1, candleType: 'Type A', message: 'New Candle' }];
-        candleModel.getAllCandles.mockReturnValue(candles);
+        candleModel.find.mockResolvedValue(candles);
 
-        const result = candleService.getAllCandles();
+        const result = await candleService.getAllCandles();
 
         expect(result).toEqual(candles);
-        expect(candleModel.getAllCandles).toHaveBeenCalled();
+        expect(candleModel.find).toHaveBeenCalled();
     });
 
-    it('should create a new candle and return it', () => {
+    it('should create a new candle and return it', async () => {
         const newCandle = { uid: 3, candleType: 'Type A', message: 'New Candle' };
-        candleModel.createCandle.mockReturnValue(newCandle);
+        candleModel.prototype.save = jest.fn().mockResolvedValue(newCandle);
 
-        const result = candleService.createCandle(newCandle);
+        const result = await candleService.createCandle(newCandle);
 
         expect(result).toEqual(newCandle);
-        expect(candleModel.createCandle).toHaveBeenCalledWith(newCandle);
+        expect(candleModel.prototype.save).toHaveBeenCalled();
     });
 
-    it('should throw an error if candle data is invalid (required key missing)', () => {
-        
+    it('should throw an error if candle data is invalid (required key missing)', async () => {
+
         const invalidCandle = [
             { uid: null, candleType: 'Type A', message: 'New Candle' },
             { uid: 1, candleType: null, message: 'New Candle' },
             { uid: 1, candleType: 'Type A', message: null }]
 
-        invalidCandle.forEach(element => {
-            
-            expect(() => {
-                candleService.createCandle(element);
-            }).toThrow('Invalid candle data');
-
-        });
+        for (const element of invalidCandle) {
+            await expect(candleService.createCandle(element)).rejects.toThrow('Invalid candle data');
+        }
 
     });
 
