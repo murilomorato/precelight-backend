@@ -6,10 +6,10 @@ exports.getAllCandles = async (req, res) => {
 };
 
 exports.createCandle = async (req, res) => {
-    const { candleType, message } = req.body;
+    const { candleType, message, addon } = req.body;
 
     try {
-        await candleService.createCandle({ candleType, message });
+        await candleService.createCandle({ candleType, message, addon });
         res.status(201).json({ success: true });
     } catch (error) {
         if (error.message === 'Invalid candle data') {

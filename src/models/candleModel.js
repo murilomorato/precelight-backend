@@ -13,6 +13,21 @@ const CandleSchema = new mongoose.Schema({
     message: {
         type: String,
         required: true
+    },
+    addon: {
+        type: [{ addonType: String, addonData: String }]
+    },
+    expireAt: {
+        type: String,
+        required: true
+    },
+    likes: {
+        type: Number,
+        default: 0
+    },
+    shares: {
+        type: Number,
+        default: 0
     }
 });
 
