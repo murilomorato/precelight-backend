@@ -5,7 +5,7 @@ jest.mock('../../src/services/candleService');
 
 describe('Candle Controller', () => {
 
-    it('should return all candles', () => {
+    it('should return all candles', async () => {
 
         //arrange
         const req = {};
@@ -13,21 +13,20 @@ describe('Candle Controller', () => {
             json: jest.fn(),//spy function
         };
 
-        candleService.getAllCandles.mockReturnValue([{ uid: 1, candleType: 'Type A', message: 'New Candle' }]);
+        candleService.getAllCandles.mockReturnValue([{ candleType: 'Type A', message: 'New Candle' }]);
 
         //act
-        candleController.getAllCandles(req, res);
+        await candleController.getAllCandles(req, res);
 
         //assert
-        expect(res.json).toHaveBeenCalledWith([{ uid: 1, candleType: 'Type A', message: 'New Candle' }]);
+        expect(res.json).toHaveBeenCalledWith([{ candleType: 'Type A', message: 'New Candle' }]);
 
     });
 
-    it('should create a new candle and return success true', () => {
+    it('should create a new candle and return success true', async () => {
 
         const req = {
             body: {
-                uid: 3,
                 candleType: 'Type A',
                 message: 'New Candle'
             }
@@ -37,9 +36,9 @@ describe('Candle Controller', () => {
             json: jest.fn(),
         };
 
-        candleService.createCandle.mockReturnValue({ uid: 3, candleType: 'Type A', message: 'New Candle' });
+        candleService.createCandle.mockReturnValue({ candleType: 'Type A', message: 'New Candle' });
 
-        candleController.createCandle(req, res);
+        await candleController.createCandle(req, res);
 
         expect(res.status).toHaveBeenCalledWith(201);
         expect(res.json).toHaveBeenCalledWith({ success: true });
@@ -48,7 +47,7 @@ describe('Candle Controller', () => {
 
     it('should return 500 success false if creation fails', () => {
         const req = {
-            body: { uid: 3, candleType: 'Type A', message: 'New Candle' }
+            body: { candleType: 'Type A', message: 'New Candle' }
         };
         const res = {
             status: jest.fn().mockReturnThis(),
@@ -65,9 +64,9 @@ describe('Candle Controller', () => {
         expect(res.json).toHaveBeenCalledWith({ success: false });
     });
 
-    it('should return 404 success false if miss required data', () => {
+    it('should return 400 success false if miss required data', () => {
         const req = {
-            body: { uid: 3, candleType: 'Type A', message: 'New Candle' }
+            body: { candleType: 'Type A', message: 'New Candle' }
         };
         const res = {
             status: jest.fn().mockReturnThis(),
@@ -80,7 +79,7 @@ describe('Candle Controller', () => {
 
         candleController.createCandle(req, res);
 
-        expect(res.status).toHaveBeenCalledWith(404);
+        expect(res.status).toHaveBeenCalledWith(400);
         expect(res.json).toHaveBeenCalledWith({ success: false });
     });
 

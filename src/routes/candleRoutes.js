@@ -3,8 +3,8 @@ const candleController = require('../controllers/candleController');
 
 const router = express.Router();
 
-router.get('/', candleController.getAllCandles);
+router.get('/get-all-candles', candleController.getAllCandles);
 
-router.post('/', candleController.createCandle);
+router.post('/create-candle', candleController.createCandle);
 
 module.exports = router;
