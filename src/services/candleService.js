@@ -1,12 +1,13 @@
-const candleModel = require('../models/candleModel');
+const Candle = require('../models/candleModel');
 
-exports.getAllCandles = () => {
-    return candleModel.getAllCandles();
+exports.getAllCandles = async () => {
+    return await Candle.find();
 };
 
-exports.createCandle = (candle) => {
+exports.createCandle = async (candle) => {
     if (!candle.uid || !candle.candleType || !candle.message) {
         throw new Error('Invalid candle data');
     }
-    return candleModel.createCandle(candle);
+    const newCandle = new Candle(candle);
+    return await newCandle.save();
 };

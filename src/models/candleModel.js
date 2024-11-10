@@ -1,13 +1,19 @@
-const candles = [
-    { uid: 1, candleType: 'simple', message: 'first candle message' },
-    { uid: 2, candleType: 'simple', message: 'second candle message' },
-];
+const mongoose = require('mongoose');
 
-exports.getAllCandles = () => {
-    return candles;
-};
+const CandleSchema = new mongoose.Schema({
+    uid: {
+        type: Number,
+        required: true,
+        unique: true
+    },
+    candleType: {
+        type: String,
+        required: true
+    },
+    message: {
+        type: String,
+        required: true
+    }
+});
 
-exports.createCandle = (candle) => {
-    candles.push(candle);
-    return candle;
-};
+module.exports = mongoose.model('Candle', CandleSchema);
