@@ -1,7 +1,7 @@
-const candleController = require('../../src/controllers/candleController');
-const candleService = require('../../src/services/candleService');
+const candleController = require('../../../src/controllers/candleController');
+const candleService = require('../../../src/services/candleService');
 
-jest.mock('../../src/services/candleService');
+jest.mock('../../../src/services/candleService');
 
 describe('Candle Controller', () => {
 
@@ -28,7 +28,8 @@ describe('Candle Controller', () => {
         const req = {
             body: {
                 candleType: 'simple',
-                message: 'New Candle'
+                message: 'New Candle',
+                addon: []
             }
         };
         const res = {
@@ -36,7 +37,20 @@ describe('Candle Controller', () => {
             json: jest.fn(),
         };
 
-        candleService.createCandle.mockReturnValue({ candleType: 'simple', message: 'New Candle' });
+        const serviceResponseMock = {
+            uid: 'mocked-uid',
+            candleType: 'simple',
+            message: 'New Candle',
+            addon: [{
+                addonType: 'none',
+                addonData: 'none'
+            }],
+            expireAt: "2024-11-16T13:27:21.743Z",
+            likes: 0,
+            shares: 0
+        }
+
+        candleService.createCandle.mockReturnValue(serviceResponseMock);
 
         await candleController.createCandle(req, res);
 
@@ -47,7 +61,11 @@ describe('Candle Controller', () => {
 
     it('should return 500 success false if creation fails', () => {
         const req = {
-            body: { candleType: 'simple', message: 'New Candle' }
+            body: {
+                candleType: 'simple',
+                message: 'New Candle',
+                addon: []
+            }
         };
         const res = {
             status: jest.fn().mockReturnThis(),
@@ -66,7 +84,10 @@ describe('Candle Controller', () => {
 
     it('should return 400 success false if miss required data', () => {
         const req = {
-            body: { candleType: 'simple', message: 'New Candle' }
+            body: {
+                message: 'New Candle',
+                addon: []
+            }
         };
         const res = {
             status: jest.fn().mockReturnThis(),

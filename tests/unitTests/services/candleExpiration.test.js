@@ -1,4 +1,4 @@
-const { calcInitialExpirationDate } = require('../../src/services/candleExpiration');
+const { calcInitialExpirationDate } = require('../../../src/services/candleExpiration');
 
 describe('calcInitialExpirationDate', () => {
     it('should calculate expiration date correctly for simple type', () => {
