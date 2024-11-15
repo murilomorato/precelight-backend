@@ -8,4 +8,5 @@ module.exports = {
         'src/app.js',
         'src/server.js'
     ],
+    setupFilesAfterEnv: ['./tests/setupDbInMemory.js']
 };
