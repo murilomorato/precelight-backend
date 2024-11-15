@@ -11,7 +11,7 @@ exports.createCandle = async (candle) => {
         throw new Error('Invalid candle data');
     }
 
-    if (!Array.isArray(candle.addon) || candle.addon.length < 1) {
+    if (!candle.addon || !Array.isArray(candle.addon) || candle.addon.length < 1) {
         candle.addon = [{ addonType: 'none', addonData: 'none' }];
     }
 
@@ -20,10 +20,14 @@ exports.createCandle = async (candle) => {
     candle.shares = 0;
     candle.uid = uuidv4();
 
-    console.log('objectlog:' + candle.expireAt);
+    let newCandle = new Candle
+    newCandle.uid = candle.uid
+    newCandle.candleType = candle.candleType
+    newCandle.message = candle.message
+    newCandle.addon = candle.addon
+    newCandle.expireAt = candle.expireAt
+    newCandle.likes = candle.likes
+    newCandle.shares = candle.shares
 
-    const newCandle = new Candle(candle);
-
-    console.log('Candlelog:' + newCandle.expireAt);
     return await newCandle.save();
 };

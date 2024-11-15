@@ -15,10 +15,13 @@ const CandleSchema = new mongoose.Schema({
         required: true
     },
     addon: {
-        type: [{ addonType: String, addonData: String }]
+        type: [{
+            addonType: String,
+            addonData: String
+        }]
     },
     expireAt: {
-        type: String,
+        type: Date,
         required: true
     },
     likes: {
