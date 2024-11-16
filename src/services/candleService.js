@@ -11,9 +11,21 @@ exports.createCandle = async (candle) => {
         throw new Error('Invalid candle data');
     }
 
+    const validCandleTypes = ['simple', 'threeDays', 'week', 'month']
+    if (!validCandleTypes.includes(candle.candleType)) {
+        throw new Error('Invalid candle type');
+    }
+
     if (!candle.addon || !Array.isArray(candle.addon) || candle.addon.length < 1) {
         candle.addon = [{ addonType: 'none', addonData: 'none' }];
     }
+
+    const validCandleAddons = ['none', 'extraDays'];
+    candle.addon.forEach(element => {
+        if (!validCandleAddons.includes(element.addonType)) {
+            throw new Error('Invalid candle addon');
+        }
+    });
 
     candle.expireAt = candleExpire.calcInitialExpirationDate({ type: candle.candleType, addOn: candle.addon });
     candle.likes = 0;
@@ -28,6 +40,6 @@ exports.createCandle = async (candle) => {
     newCandle.expireAt = candle.expireAt
     newCandle.likes = candle.likes
     newCandle.shares = candle.shares
-
+    debugger
     return await newCandle.save();
 };

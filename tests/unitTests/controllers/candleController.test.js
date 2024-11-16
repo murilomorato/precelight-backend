@@ -79,7 +79,7 @@ describe('Candle Controller', () => {
         candleController.createCandle(req, res);
 
         expect(res.status).toHaveBeenCalledWith(500);
-        expect(res.json).toHaveBeenCalledWith({ success: false });
+        expect(res.json).toHaveBeenCalledWith({ success: false, error: 'Internal server error' });
     });
 
     it('should return 400 success false if miss required data', () => {
@@ -101,7 +101,7 @@ describe('Candle Controller', () => {
         candleController.createCandle(req, res);
 
         expect(res.status).toHaveBeenCalledWith(400);
-        expect(res.json).toHaveBeenCalledWith({ success: false });
+        expect(res.json).toHaveBeenCalledWith({ success: false, error: 'Invalid candle data' });
     });
 
 });

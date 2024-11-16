@@ -71,7 +71,7 @@ describe('Candle Service', () => {
     });
 
     it('should calculate expireAt correctly for different candle types', async () => {
-        const candleTypes = ['simple', 'treeDays', 'week', 'month'];
+        const candleTypes = ['simple', 'threeDays', 'week', 'month'];
         const expectedDates = [1, 3, 7, 30];
 
         for (let i = 0; i < candleTypes.length; i++) {

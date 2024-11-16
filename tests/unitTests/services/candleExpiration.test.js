@@ -8,8 +8,8 @@ describe('calcInitialExpirationDate', () => {
         expect(result.toDateString()).toBe(expectedDate.toDateString());
     });
 
-    it('should calculate expiration date correctly for treeDays type', () => {
-        const result = calcInitialExpirationDate({ type: 'treeDays', addOn: [] });
+    it('should calculate expiration date correctly for threeDays type', () => {
+        const result = calcInitialExpirationDate({ type: 'threeDays', addOn: [] });
         const expectedDate = new Date();
         expectedDate.setDate(expectedDate.getDate() + 3);
         expect(result.toDateString()).toBe(expectedDate.toDateString());
@@ -30,9 +30,12 @@ describe('calcInitialExpirationDate', () => {
     });
 
     it('should add extra days correctly when addOn is provided', () => {
-        const result = calcInitialExpirationDate({ type: 'simple', addOn: [{ type: 'extraDays', addonData: '2' }] });
+
         const expectedDate = new Date();
         expectedDate.setDate(expectedDate.getDate() + 3); // 1 day for 'simple' + 2 extra days
+
+        const result = calcInitialExpirationDate({ type: 'simple', addOn: [{ addonType: 'extraDays', addonData: '2' }] });
+
         expect(result.toDateString()).toBe(expectedDate.toDateString());
     });
 

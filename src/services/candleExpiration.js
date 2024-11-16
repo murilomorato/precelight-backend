@@ -1,5 +1,5 @@
 exports.calcInitialExpirationDate = ({ type, addOn }) => {
-    const validTypes = ['simple', 'treeDays', 'week', 'month'];
+    const validTypes = ['simple', 'threeDays', 'week', 'month'];
     if (!validTypes.includes(type)) throw new Error('Invalid type');
 
     const expirationDate = new Date();
@@ -9,7 +9,7 @@ exports.calcInitialExpirationDate = ({ type, addOn }) => {
         case 'simple':
             expirationDate.setDate(expirationDate.getDate() + 1);
             break;
-        case 'treeDays':
+        case 'threeDays':
             expirationDate.setDate(expirationDate.getDate() + 3);
             break;
         case 'week':
@@ -23,7 +23,7 @@ exports.calcInitialExpirationDate = ({ type, addOn }) => {
     // add more days if has an extraDays add-on
     if (Array.isArray(addOn) && addOn.length > 0) {
         addOn.forEach(element => {
-            if (element.type === 'extraDays' && !isNaN(element.addonData)) {
+            if (element.addonType === 'extraDays' && element.addonData) {
                 expirationDate.setDate(expirationDate.getDate() + Number(element.addonData));
             }
         });
