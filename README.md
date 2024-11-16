@@ -24,12 +24,11 @@ O projeto utiliza alguns design patterns comuns para manter o código organizado
   - **Model**: Representa a estrutura dos dados e interage com o banco de dados (definido em `src/models`).
   - **Controller**: Lida com as requisições HTTP, chamando os serviços apropriados e retornando as respostas (definido em `src/controllers`).
   - **Service**: Contém a lógica de negócios e interage com os modelos (definido em `src/services`).
-
-- **Middleware**: Utilizado para adicionar funcionalidades como autenticação e manipulação de requisições/respostas (definido em `src/middleware`).
+  - **Middleware**: Utilizado para adicionar funcionalidades como autenticação e manipulação de requisições/respostas (definido em `src/middleware`).
 
 ### Variáveis de Ambiente
 
-As variáveis de ambiente são usadas para configurar o comportamento do aplicativo sem a necessidade de alterar o código. Elas são definidas em um arquivo `.env` na raiz do projeto. Aqui estão as principais variáveis de ambiente utilizadas:
+As variáveis de ambiente são definidas em um arquivo `.env` na raiz do projeto. Aqui estão as principais variáveis de ambiente utilizadas:
 
 - **PORT**: Porta em que o servidor irá rodar.
 - **MONGO_URI**: URI de conexão com o banco de dados MongoDB.
@@ -43,10 +42,10 @@ As variáveis de ambiente são usadas para configurar o comportamento do aplicat
 - **Testes Unitários:** Localizados na pasta `tests/unitTests`. Esses testes verificam funcionalidades isoladas dos serviços e controladores.
 - **Testes Integrados:** Localizados na pasta `tests/integratedTests`. Esses testes verificam a integração entre diferentes partes do sistema, incluindo interações com o banco de dados.
 
-### Testes Unitários e Integrados
+### Ferramentas de testes
 
 O projeto utiliza o Jest para testes unitários e integrados. Os testes integrados utilizam o `mongodb-memory-server` para criar um banco de dados MongoDB em memória, garantindo que os testes não afetem o banco de dados de produção.
-Utiliza também `supertest` para disparar requisições http para as rotas da Api.
+Utiliza também `supertest` para disparar requisições Http para as rotas da Api.
 
 ### Rodando os Testes
 
@@ -91,6 +90,9 @@ Certifique-se de ter o Node.js e o npm instalados na sua máquina.
 
 4. **Inicie o servidor:**
 
+    Inicie o cluster do seu banco de dados Mongo.
+    Inicie o server da aplicação:
+    
     ```bash
     npm run run-server
     ```
