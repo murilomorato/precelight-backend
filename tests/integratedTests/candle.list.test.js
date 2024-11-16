@@ -11,12 +11,22 @@ describe('Candle create integrated tests', () => {
     xit('should return all candles', async () => {
         await Candle.create({
             candleType: 'simple',
-            message: 'New Candle',
+            message: 'Candle 01',
             addon: [],
             expireAt: new Date(),
             likes: 0,
             shares: 0,
-            uid: 'mock-uuid'
+            uid: 'mock-uuid-01'
+        });
+
+        await Candle.create({
+            candleType: 'simple',
+            message: 'Candle 02',
+            addon: [],
+            expireAt: new Date(),
+            likes: 0,
+            shares: 0,
+            uid: 'mock-uuid-02'
         });
 
         const response = await request(app)

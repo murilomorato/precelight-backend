@@ -10,17 +10,21 @@ describe('Candle Controller', () => {
         //arrange
         const req = {};
         const res = {
-            json: jest.fn(),//spy function
+            json: jest.fn(), //spy function
         };
 
-        candleService.getAllCandles.mockReturnValue([{ candleType: 'simple', message: 'New Candle' }]);
+        const candles = []
+        candles[0] = { candleType: 'simple', message: 'New Candle 0' };
+        candles[1] = { candleType: 'simple', message: 'New Candle 1' };
+        candles[2] = { candleType: 'simple', message: 'New Candle 2' };
+
+        candleService.getAllCandles.mockReturnValue(candles);
 
         //act
         await candleController.getAllCandles(req, res);
 
         //assert
-        expect(res.json).toHaveBeenCalledWith([{ candleType: 'simple', message: 'New Candle' }]);
-
+        expect(res.json).toHaveBeenCalledWith({ candles: candles });
     });
 
     it('should create a new candle and return success true', async () => {

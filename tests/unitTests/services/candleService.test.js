@@ -15,7 +15,11 @@ describe('Candle Service', () => {
     });
 
     it('should return all candles', async () => {
-        const candles = [{ candleType: 'simple', message: 'New Candle' }];
+        const candles = []
+        candles[0] = { candleType: 'simple', message: 'New Candle 0' };
+        candles[1] = { candleType: 'simple', message: 'New Candle 1' };
+        candles[2] = { candleType: 'simple', message: 'New Candle 2' };
+
         candleModel.find.mockResolvedValue(candles);
 
         const result = await candleService.getAllCandles();

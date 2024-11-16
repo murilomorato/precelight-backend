@@ -3,7 +3,7 @@ const Candle = require('../models/candleModel');
 const candleExpire = require('./candleExpiration');
 
 exports.getAllCandles = async () => {
-    return await Candle.find({});
+    return await Candle.find();
 };
 
 exports.createCandle = async (candle) => {

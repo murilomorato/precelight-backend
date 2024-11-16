@@ -1,7 +1,11 @@
 const candleService = require('../services/candleService');
 
 exports.getAllCandles = async (req, res) => {
-    const candles = await candleService.getAllCandles();
+
+    const candles = {
+        candles: await candleService.getAllCandles()
+    };
+
     res.json(candles);
 };
 
