@@ -8,7 +8,7 @@ Repositório do backend do Precelight! Aqui você encontrará o que precisa para
 
 O projeto segue uma estrutura organizada para facilitar a manutenção e a escalabilidade. Aqui está uma visão geral das principais pastas e arquivos:
 
-- **src/**: Contém o código-fonte do aplicativo.
+  - **src/**: Contém o código-fonte do aplicativo.
   - **controllers/**: Controladores que lidam com as requisições HTTP.
   - **models/**: Modelos que definem a estrutura de dados e dos documentos no MongoDB.
   - **routes/**: Definição das rotas da API.
