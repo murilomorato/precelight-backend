@@ -173,4 +173,35 @@ describe('Candle create integrated tests', () => {
 
     });
 
+    it('try to create a new candle with invalid authorization token and should return 401', async () => {
+
+        const response = await request(app)
+            .post('/api/candles/create-candle')
+            .set('Authorization', `Basic InvalidAuthorizationToken`)
+            .send({
+                candleType: 'simple',
+                message: 'New Candle',
+                addon: []
+            });
+
+        expect(response.status).toBe(401);
+        expect(response.body).toEqual({ message: 'Invalid Credentials' });
+
+    });
+
+    it('try to create a new candle without authorization token and should return 401', async () => {
+
+        const response = await request(app)
+            .post('/api/candles/create-candle')
+            .send({
+                candleType: 'simple',
+                message: 'New Candle',
+                addon: []
+            });
+
+        expect(response.status).toBe(401);
+        expect(response.body).toEqual({ message: 'Missing Authorization Header' });
+
+    });
+
 });
