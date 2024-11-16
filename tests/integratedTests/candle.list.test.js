@@ -54,4 +54,23 @@ describe('Candle list integrated tests', () => {
         expect(response.body).toEqual({ candles: [candle01, candle02] });
     });
 
+    it('try to list candles with invalid authorizations and should return 401', async () => {
+
+        const response = await request(app)
+            .get('/api/candles/get-all-candles')
+            .set('Authorization', `Basic invalidAuthorizationToken`);
+
+        expect(response.status).toBe(401);
+        expect(response.body).toEqual({ message: 'Invalid Credentials' });
+    });
+
+    it('try to list candles without authorization and should return 401', async () => {
+
+        const response = await request(app)
+            .get('/api/candles/get-all-candles');
+
+        expect(response.status).toBe(401);
+        expect(response.body).toEqual({ message: 'Missing Authorization Header' });
+    });
+
 });
